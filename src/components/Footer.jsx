@@ -1,0 +1,172 @@
+import React from 'react';
+import './Footer.css';
+
+const Footer = () => {
+  const scrollToTop = () => {
+    const homeSection = document.getElementById('home');
+    if (homeSection) {
+      homeSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const navLinks = [
+    { name: 'Home', href: '#home' },
+    { name: 'Projects', href: '#projects' },
+    { name: 'About', href: '#about' },
+    { name: 'Blog', href: '#blog' },
+    { name: 'Contact', href: '#contact' },
+  ];
+
+  const socialLinks = [
+    {
+      name: 'GitHub',
+      href: 'https://github.com/stevekari',
+      icon: (
+        <svg
+          className="footer-social-icon"
+          viewBox="0 0 24 24"
+          width="18"
+          height="18"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+          />
+        </svg>
+      ),
+    },
+    {
+      name: 'LinkedIn',
+      href: 'https://www.linkedin.com/in/stephen-karikari',
+
+      icon: (
+        <svg
+          className="footer-social-icon"
+          viewBox="0 0 24 24"
+          width="18"
+          height="18"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.64 1.64 0 1 0-.01-3.28 1.64 1.64 0 0 0 .01 3.28m-1.4 9.74h2.79v-8.37H5.06v8.37z" />
+        </svg>
+      ),
+    },
+    {
+      name: 'Email',
+      href: 'stephenkarikari76@gmail.com',
+      icon: (
+        <svg
+          className="footer-social-icon"
+          viewBox="0 0 24 24"
+          width="18"
+          height="18"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <rect width="20" height="16" x="2" y="4" rx="2" />
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+        </svg>
+      ),
+    },
+  ];
+
+  return (
+    <footer className="footer">
+      <div className="container">
+        <div className="footer-grid">
+          {/* Left Column: Brand & Bio */}
+          <div className="footer-col footer-col-brand">
+            <a href="#home" className="footer-logo" aria-label="Stephen Karikari Home">
+              <span className="footer-logo-badge">SK</span>
+              <span className="footer-logo-name">Stephen Karikari</span>
+            </a>
+            <p className="footer-tagline">Java + React Full-Stack Developer</p>
+            <p className="footer-description">
+              Building clean, business-focused web applications.
+            </p>
+          </div>
+
+          {/* Middle Column: Quick Links */}
+          <div className="footer-col footer-col-links">
+            <h3 className="footer-heading">Quick Links</h3>
+            <ul className="footer-nav-list">
+              {navLinks.map((link) => (
+                <li key={link.name} className="footer-nav-item">
+                  <a href={link.href} className="footer-link">
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Right Column: Connect / Socials */}
+          <div className="footer-col footer-col-connect">
+            <h3 className="footer-heading">Connect</h3>
+            <ul className="footer-social-list">
+              {socialLinks.map((item) => (
+                <li key={item.name} className="footer-social-item">
+                  <a
+                    href={item.href}
+                    className="footer-social-link"
+                    target={item.href.startsWith('http') ? '_blank' : undefined}
+                    rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    aria-label={item.name}
+                  >
+                    <span className="footer-social-icon-wrapper">{item.icon}</span>
+                    <span className="footer-social-label">{item.name}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="footer-bottom">
+          <div className="footer-bottom-left">
+            <p className="footer-copyright">
+              &copy; 2026 Stephen Karikari. All rights reserved.
+            </p>
+          </div>
+          <div className="footer-bottom-right">
+            <span className="footer-built-with">Built with React + Vite</span>
+            <button
+              type="button"
+              className="footer-back-to-top"
+              onClick={scrollToTop}
+              aria-label="Back to Top"
+              title="Back to Top"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="m18 15-6-6-6 6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

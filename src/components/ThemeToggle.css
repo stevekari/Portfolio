@@ -1,0 +1,80 @@
+/* ===== Theme Toggle Styles ===== */
+.theme-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.theme-toggle-track {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 52px;
+  height: 28px;
+  padding: 0 4px;
+  background-color: var(--color-gray-200);
+  border: 1px solid var(--color-gray-300);
+  border-radius: 9999px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.theme-toggle-track--dark {
+  background-color: #1E293B;
+  border-color: #334155;
+}
+
+/* Sun & Moon icons */
+.theme-toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  color: var(--color-gray-400);
+  transition: color 0.3s ease, opacity 0.3s ease;
+  opacity: 0.5;
+  z-index: 1;
+}
+
+.theme-toggle-icon--active {
+  opacity: 1;
+}
+
+.theme-toggle-sun {
+  color: #F59E0B;
+}
+
+.theme-toggle-icon--active.theme-toggle-sun {
+  color: #F59E0B;
+}
+
+.theme-toggle-moon {
+  color: #94A3B8;
+}
+
+.theme-toggle-icon--active.theme-toggle-moon {
+  color: #93C5FD;
+}
+
+/* Sliding dot */
+.theme-toggle-slider {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background-color: #FFFFFF;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease;
+}
+
+.theme-toggle-track--dark .theme-toggle-slider {
+  transform: translateX(24px);
+  background-color: #E2E8F0;
+}
