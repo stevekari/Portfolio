@@ -4,6 +4,7 @@ import portalImg from '../assets/portal.png';
 import cafeImg from '../assets/cafe.png';
 import pageImg from '../assets/page.png';
 import workImg from '../assets/work.png';
+import shopImg from '../assets/shop.png';
 
 export const navLinks = [
   { name: 'Home', href: '#home' },
@@ -98,14 +99,14 @@ export const projects = [
   {
     id: 5,
     title: 'Shopping App',
-    image: pageImg,
+    image: shopImg,
     description:
       'Full e-commerce platform with product catalog, shopping cart, checkout flow, and order management.',
     businessValue:
       'End-to-end purchase flow — handles inventory, payments, and order tracking.',
     categories: ['E-Commerce', 'CRUD'],
     tags: ['Java', 'Spring Boot', 'React', 'REST API'],
-    codeUrl: 'https://github.com/stephenkarikari/shopping-app',
+    codeUrl: 'https://github.com/stevekari/s-shop',
     liveUrl: '#',
     gradient: 'linear-gradient(135deg, #DC2626 0%, #F87171 100%)',
     mockup: {
@@ -239,7 +240,7 @@ export const skillCategories = [
 
 export const stats = [
   {
-    value: '5+',
+    value: '6+',
     label: 'Projects Built',
   },
   {

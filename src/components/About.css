@@ -173,19 +173,51 @@
 
 @media (max-width: 640px) {
   .about-skills {
-    padding: var(--spacing-lg);
+    padding: 1.25rem;
   }
 
   .about-stats-grid {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-md);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
   }
 
   .stat-card {
-    padding: var(--spacing-lg);
+    padding: 1rem 0.5rem;
   }
 
   .stat-value {
-    font-size: var(--font-size-3xl);
+    font-size: 1.65rem;
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
+  }
+
+  .skill-category-group {
+    margin-bottom: 1rem;
+  }
+
+  .skill-pill {
+    padding: 4px 10px;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .about-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .stat-card {
+    padding: 0.875rem 1rem;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+    margin-bottom: 0;
   }
 }

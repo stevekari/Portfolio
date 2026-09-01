@@ -19,12 +19,10 @@
   width: 650px;
   height: 650px;
   border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(37, 99, 235, 0.08) 0%,
-    rgba(37, 99, 235, 0.02) 45%,
-    transparent 70%
-  );
+  background: radial-gradient(circle,
+      rgba(37, 99, 235, 0.08) 0%,
+      rgba(37, 99, 235, 0.02) 45%,
+      transparent 70%);
   filter: blur(60px);
   pointer-events: none;
   z-index: 0;
@@ -49,7 +47,7 @@
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hero-grid--visible .hero-animate {
@@ -57,11 +55,25 @@
   transform: translateY(0);
 }
 
-.hero-animate-1 { transition-delay: 0ms; }
-.hero-animate-2 { transition-delay: 120ms; }
-.hero-animate-3 { transition-delay: 240ms; }
-.hero-animate-4 { transition-delay: 360ms; }
-.hero-animate-5 { transition-delay: 480ms; }
+.hero-animate-1 {
+  transition-delay: 0ms;
+}
+
+.hero-animate-2 {
+  transition-delay: 120ms;
+}
+
+.hero-animate-3 {
+  transition-delay: 240ms;
+}
+
+.hero-animate-4 {
+  transition-delay: 360ms;
+}
+
+.hero-animate-5 {
+  transition-delay: 480ms;
+}
 
 /* ===== Left Column Styles ===== */
 .hero-left {
@@ -110,6 +122,7 @@
     transform: scale(1);
     box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
   }
+
   50% {
     transform: scale(1.15);
     box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.1);
@@ -440,12 +453,35 @@
   color: #0284C7;
 }
 
-[data-theme="dark"] .flow-badge-react { background-color: rgba(37, 99, 235, 0.2); color: #93C5FD; }
-[data-theme="dark"] .flow-badge-java { background-color: rgba(234, 88, 12, 0.2); color: #FDBA74; }
-[data-theme="dark"] .flow-badge-db { background-color: rgba(51, 65, 85, 0.4); color: #CBD5E1; }
-[data-theme="dark"] .flow-badge-action { background-color: #1E293B; color: #F1F5F9; }
-[data-theme="dark"] .flow-badge-validate { background-color: rgba(22, 163, 74, 0.2); color: #86EFAC; }
-[data-theme="dark"] .flow-badge-docker { background-color: rgba(2, 132, 199, 0.2); color: #7DD3FC; }
+[data-theme="dark"] .flow-badge-react {
+  background-color: rgba(37, 99, 235, 0.2);
+  color: #93C5FD;
+}
+
+[data-theme="dark"] .flow-badge-java {
+  background-color: rgba(234, 88, 12, 0.2);
+  color: #FDBA74;
+}
+
+[data-theme="dark"] .flow-badge-db {
+  background-color: rgba(51, 65, 85, 0.4);
+  color: #CBD5E1;
+}
+
+[data-theme="dark"] .flow-badge-action {
+  background-color: #1E293B;
+  color: #F1F5F9;
+}
+
+[data-theme="dark"] .flow-badge-validate {
+  background-color: rgba(22, 163, 74, 0.2);
+  color: #86EFAC;
+}
+
+[data-theme="dark"] .flow-badge-docker {
+  background-color: rgba(2, 132, 199, 0.2);
+  color: #7DD3FC;
+}
 
 /* Connectors */
 .flow-connector-horiz {
@@ -531,91 +567,180 @@
   }
 
   .hero-left {
-    align-items: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
+    max-width: 680px;
+    margin: 0 auto;
+    width: 100%;
   }
 
   .hero-title {
-    font-size: var(--font-size-4xl);
-  }
-
-  .hero-description-wrap {
-    align-items: center;
-  }
-
-  .hero-actions {
-    justify-content: center;
+    font-size: clamp(2.4rem, 6.5vw, 3.5rem);
   }
 
   .hero-info-cards {
-    max-width: 520px;
+    max-width: 100%;
+  }
+
+  .hero-actions {
+    justify-content: flex-start;
+  }
+
+  .hero-right {
+    max-width: 680px;
+    margin: 0 auto;
   }
 }
 
 @media (max-width: 640px) {
   .hero-section {
-    padding-top: calc(72px + var(--spacing-2xl));
-    padding-bottom: var(--spacing-3xl);
+    padding-top: calc(72px + 1.75rem);
+    padding-bottom: 3rem;
+    min-height: auto;
   }
 
   .hero-title {
-    font-size: var(--font-size-3xl);
+    font-size: clamp(2rem, 8.5vw, 2.75rem);
+    line-height: 1.12;
+    margin-bottom: 1rem;
   }
 
-  .hero-description-lead,
-  .hero-description-text {
+  .hero-badge {
+    font-size: 0.72rem;
+    padding: 5px 12px;
+    margin-bottom: 1rem;
+  }
+
+  .hero-description-wrap {
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-description-lead {
     font-size: 0.85rem;
+    line-height: 1.5;
+  }
+
+  .hero-description-text {
+    font-size: 0.82rem;
+    line-height: 1.6;
   }
 
   .hero-info-cards {
     grid-template-columns: 1fr;
-    gap: var(--spacing-xs);
+    gap: 8px;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-info-card {
+    padding: 10px 14px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .info-card-label {
+    font-size: 0.65rem;
+  }
+
+  .info-card-value {
+    font-size: 0.85rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .hero-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 13px 20px;
+    font-size: 0.9rem;
+  }
+
+  .system-flow-card {
+    padding: 16px 12px;
+    border-radius: var(--radius-lg);
   }
 
   .flow-level {
-    grid-template-columns: 1fr 24px 1fr;
+    grid-template-columns: 1.25fr 20px 1fr;
     gap: 4px;
+    align-items: center;
   }
 
   .flow-node {
-    padding: 8px 10px;
+    padding: 8px 8px;
     gap: 8px;
+    border-radius: var(--radius-md);
   }
 
   .flow-node-title {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
   }
 
   .flow-node-desc {
-    font-size: 0.58rem;
+    font-size: 0.56rem;
   }
 
   .flow-node-badge {
     width: 26px;
     height: 26px;
     min-width: 26px;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
+  }
+
+  .flow-connector-horiz {
+    font-size: 0.8rem;
   }
 
   .flow-vertical-connector {
-    padding-left: 80px;
+    padding-left: 24px;
+    margin: 2px 0;
+  }
+
+  .flow-arrow-down-main {
+    font-size: 0.75rem;
   }
 
   .system-flow-footer {
+    padding-top: 10px;
+    font-size: 0.62rem;
+    gap: 4px;
     flex-direction: column;
-    gap: 6px;
     align-items: flex-start;
   }
 }
 
-@media (max-width: 480px) {
-  .hero-actions {
-    flex-direction: column;
-    width: 100%;
+@media (max-width: 380px) {
+  .hero-title {
+    font-size: 1.85rem;
   }
 
-  .hero-btn {
-    width: 100%;
-    justify-content: center;
+  .flow-level {
+    grid-template-columns: 1.15fr 16px 1fr;
+    gap: 2px;
+  }
+
+  .flow-node {
+    padding: 6px 6px;
+    gap: 6px;
+  }
+
+  .flow-node-title {
+    font-size: 0.68rem;
+  }
+
+  .flow-node-desc {
+    display: none;
+  }
+
+  .flow-node-badge {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    font-size: 0.65rem;
   }
 }

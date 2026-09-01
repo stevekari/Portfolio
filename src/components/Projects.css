@@ -478,66 +478,90 @@
 
 @media (max-width: 640px) {
   .project-card-body {
-    padding: var(--spacing-lg);
+    padding: 1.25rem 1rem;
+    gap: var(--spacing-md);
   }
 
   .project-title-row {
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     gap: var(--spacing-sm);
   }
 
-  .project-categories {
-    justify-content: flex-start;
-  }
-
   .project-card-title {
-    font-size: var(--font-size-xl);
+    font-size: 1.35rem;
   }
 
+  .project-card-description {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .project-business-value {
+    padding: 8px 12px;
+    font-size: 0.82rem;
+  }
+
+  .project-card-actions {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .project-action-btn {
+    padding: 12px 14px;
+    font-size: 0.82rem;
+    min-height: 44px;
+  }
+
+  .browser-viewport--has-image {
+    min-height: 240px;
+    height: 260px;
+    padding: 0;
+  }
+
+  .browser-chrome {
+    padding: 10px 14px;
+  }
+
+  .browser-url {
+    max-width: calc(100% - 60px);
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .browser-url-text {
+    font-size: 0.72rem;
+  }
+
+  .browser-image-expand-btn {
+    opacity: 1;
+    transform: translateY(0);
+    top: 10px;
+    right: 10px;
+    padding: 4px 10px;
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 400px) {
   .project-card-actions {
     grid-template-columns: 1fr;
   }
 
-  .browser-viewport {
-    min-height: 160px;
-    padding: var(--spacing-xl) var(--spacing-md);
+  .project-title-row {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .browser-viewport--has-image {
-    min-height: 260px;
-    height: 280px;
-    padding: 0;
-  }
-
-  .browser-app-preview {
-    max-width: 260px;
-    padding: var(--spacing-lg) var(--spacing-md);
-  }
-
-  .app-icon {
-    width: 40px;
-    height: 40px;
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 380px) {
-  .browser-viewport--has-image {
-    min-height: 210px;
-    height: 230px;
-    padding: 0;
+    min-height: 200px;
+    height: 220px;
   }
 
   .project-tag {
-    padding: 4px 10px;
-    font-size: var(--font-size-xs);
-  }
-
-  .browser-chrome {
-    padding: 10px 12px;
-  }
-
-  .browser-url-text {
+    padding: 4px 8px;
     font-size: 0.7rem;
   }
 }

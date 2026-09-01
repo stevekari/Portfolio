@@ -95,6 +95,7 @@ html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 body {
@@ -104,6 +105,8 @@ body {
   color: var(--color-gray-700);
   background-color: var(--color-bg);
   transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 img {
@@ -128,6 +131,7 @@ button {
   outline: none;
   font-family: inherit;
   font-size: inherit;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* ===== Utility Classes ===== */
@@ -147,6 +151,7 @@ button {
   font-weight: 800;
   color: var(--color-dark);
   margin-bottom: var(--spacing-md);
+  letter-spacing: -0.02em;
 }
 
 .section-subtitle {
@@ -154,6 +159,39 @@ button {
   color: var(--color-gray-500);
   margin-bottom: var(--spacing-3xl);
   max-width: 600px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+
+  .section {
+    padding: 3.5rem 0;
+  }
+
+  .section-title {
+    font-size: 1.85rem;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .section {
+    padding: 2.75rem 0;
+  }
+
+  .section-title {
+    font-size: 1.65rem;
+  }
 }
 
 .btn {
