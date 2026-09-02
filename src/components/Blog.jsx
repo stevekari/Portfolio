@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import './Blog.css';
 import { blogPosts } from '../data/data';
+import { useLanguage } from '../context/LanguageContext';
 
 function useReveal(opts = {}) {
   const ref = useRef(null);
@@ -19,6 +20,7 @@ function useReveal(opts = {}) {
 }
 
 export default function Blog() {
+  const { t } = useLanguage();
   const [headerRef, headerVis] = useReveal();
   const [gridRef, gridVis] = useReveal({ threshold: 0.1 });
 
@@ -29,42 +31,48 @@ export default function Blog() {
           ref={headerRef}
           className={headerVis ? 'reveal-visible' : 'reveal-hidden'}
         >
-          <h2 className="section-title">Blog</h2>
-          <p className="section-subtitle">
-            Thoughts, lessons, and insights from my development journey
-          </p>
+          <h2 className="section-title">{t.blog.title}</h2>
+          <p className="section-subtitle">{t.blog.subtitle}</p>
         </div>
 
         <div ref={gridRef} className="blog-grid">
-          {blogPosts.map((post, i) => (
-            <article
-              key={post.id}
-              className={`blog-card ${gridVis ? 'blog-card--visible' : ''}`}
-              style={{ transitionDelay: `${i * 150}ms` }}
-            >
-              <div className="blog-card-top">
-                <span className={`blog-badge blog-badge--${post.category.toLowerCase().replace(/\s+/g, '-')}`}>
-                  {post.category}
-                </span>
-                <time className="blog-date">{post.date}</time>
-              </div>
+          {blogPosts.map((post, i) => {
+            const localizedPost = t.blog.posts[post.id];
+            const postTitle = localizedPost?.title || post.title;
+            const postDate = localizedPost?.date || post.date;
+            const postExcerpt = localizedPost?.excerpt || post.excerpt;
+            const postCategory = localizedPost?.category || post.category;
 
-              <h3 className="blog-card-title">
-                <a href={`#blog-post-${post.id}`} className="blog-title-link">
-                  {post.title}
-                </a>
-              </h3>
+            return (
+              <article
+                key={post.id}
+                className={`blog-card ${gridVis ? 'blog-card--visible' : ''}`}
+                style={{ transitionDelay: `${i * 150}ms` }}
+              >
+                <div className="blog-card-top">
+                  <span className={`blog-badge blog-badge--${post.category.toLowerCase().replace(/\s+/g, '-')}`}>
+                    {postCategory}
+                  </span>
+                  <time className="blog-date">{postDate}</time>
+                </div>
 
-              <p className="blog-card-excerpt">{post.excerpt}</p>
+                <h3 className="blog-card-title">
+                  <a href={`#blog-post-${post.id}`} className="blog-title-link">
+                    {postTitle}
+                  </a>
+                </h3>
 
-              <div className="blog-card-bottom">
-                <a href={`#blog-post-${post.id}`} className="blog-read-more" aria-label={`Read more about ${post.title}`}>
-                  <span>Read More</span>
-                  <span className="blog-read-more-arrow" aria-hidden="true">&rarr;</span>
-                </a>
-              </div>
-            </article>
-          ))}
+                <p className="blog-card-excerpt">{postExcerpt}</p>
+
+                <div className="blog-card-bottom">
+                  <a href={`#blog-post-${post.id}`} className="blog-read-more" aria-label={`${t.blog.readMore} ${postTitle}`}>
+                    <span>{t.blog.readMore}</span>
+                    <span className="blog-read-more-arrow" aria-hidden="true">&rarr;</span>
+                  </a>
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

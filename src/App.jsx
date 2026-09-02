@@ -5,23 +5,27 @@ import About from './components/About';
 import Blog from './components/Blog';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import CookieBanner from './components/CookieBanner';
+import { LanguageProvider } from './context/LanguageContext';
 import './App.css';
 
 function App() {
   return (
-    <div className="app">
-      <Navbar />
-      <main>
-        <Hero />
-        <Projects />
-        <About />
-        <Blog />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <LanguageProvider>
+      <div className="app">
+        <Navbar />
+        <main>
+          <Hero />
+          <Projects />
+          <About />
+          <Blog />
+          <Contact />
+        </main>
+        <Footer />
+        <CookieBanner />
+      </div>
+    </LanguageProvider>
   );
 }
 
 export default App;
-

@@ -1,33 +1,38 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Contact.css';
+import { useLanguage } from '../context/LanguageContext';
 
-function useReveal(opts = {}) {
+function useReveal(options = {}) {
   const ref = useRef(null);
-  const [vis, setVis] = useState(false);
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVis(true); obs.unobserve(el); } },
-      { threshold: opts.threshold || 0.15, rootMargin: '0px 0px -40px 0px' }
+      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.unobserve(el); } },
+      { threshold: options.threshold || 0.15, rootMargin: '0px 0px -40px 0px' }
     );
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
-  return [ref, vis];
+  return [ref, visible];
 }
 
 export default function Contact() {
+  const { t } = useLanguage();
+  const [headerRef, headerVis] = useReveal();
+  const [infoRef, infoVis] = useReveal();
+  const [formRef, formVis] = useReveal();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
     message: '',
   });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [headerRef, headerVis] = useReveal();
-  const [infoRef, infoVis] = useReveal();
-  const [formRef, formVis] = useReveal();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,9 +44,12 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submission received:', formData);
+    setIsSubmitting(true);
+
+    console.log('Contact form submitted:', formData);
+
+    setIsSubmitting(false);
     setIsSubmitted(true);
-    // Reset form after submission
     setFormData({
       name: '',
       email: '',
@@ -60,10 +68,8 @@ export default function Contact() {
           ref={headerRef}
           className={`contact-header ${headerVis ? 'reveal-visible' : 'reveal-hidden'}`}
         >
-          <h2 className="section-title">Get In Touch</h2>
-          <p className="section-subtitle">
-            Have a project in mind or want to discuss opportunities? I'd love to hear from you.
-          </p>
+          <h2 className="section-title">{t.contact.title}</h2>
+          <p className="section-subtitle">{t.contact.subtitle}</p>
         </div>
 
         <div className="contact-grid">
@@ -72,15 +78,13 @@ export default function Contact() {
             ref={infoRef}
             className={`contact-info ${infoVis ? 'reveal-visible' : 'reveal-left'}`}
           >
-            <h3 className="contact-info-title">Contact Information</h3>
-            <p className="contact-info-desc">
-              Feel free to reach out through any of the platforms below or send a direct message using the form.
-            </p>
+            <h3 className="contact-info-title">{t.contact.infoTitle}</h3>
+            <p className="contact-info-desc">{t.contact.infoDesc}</p>
 
             <div className="contact-list">
               {/* Email */}
               <a
-                href="mailto:stephen.karikari@email.com"
+                href="mailto:stephenkarikari76@email.com"
                 className="contact-item"
                 aria-label="Send email to stephenkarikari76@email.com"
               >
@@ -102,7 +106,7 @@ export default function Contact() {
                   </svg>
                 </div>
                 <div className="contact-item-details">
-                  <span className="contact-item-label">Email</span>
+                  <span className="contact-item-label">{t.contact.emailLabel}</span>
                   <span className="contact-item-value">stephenkarikari76@email.com</span>
                 </div>
               </a>
@@ -134,8 +138,8 @@ export default function Contact() {
                   </svg>
                 </div>
                 <div className="contact-item-details">
-                  <span className="contact-item-label">LinkedIn</span>
-                  <span className="contact-item-value">linkedin.com/in/stephenkarikari</span>
+                  <span className="contact-item-label">{t.contact.linkedinLabel}</span>
+                  <span className="contact-item-value">linkedin.com/in/stephen-karikari</span>
                 </div>
               </a>
 
@@ -165,8 +169,8 @@ export default function Contact() {
                   </svg>
                 </div>
                 <div className="contact-item-details">
-                  <span className="contact-item-label">GitHub</span>
-                  <span className="contact-item-value">github.com/stephenkarikari</span>
+                  <span className="contact-item-label">{t.contact.githubLabel}</span>
+                  <span className="contact-item-value">github.com/stevekari</span>
                 </div>
               </a>
 
@@ -190,8 +194,8 @@ export default function Contact() {
                   </svg>
                 </div>
                 <div className="contact-item-details">
-                  <span className="contact-item-label">Location & Availability</span>
-                  <span className="contact-item-value">Open to Remote & On-site</span>
+                  <span className="contact-item-label">{t.contact.locationLabel}</span>
+                  <span className="contact-item-value">{t.contact.locationValue}</span>
                 </div>
               </div>
             </div>
@@ -219,13 +223,13 @@ export default function Contact() {
                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                     <polyline points="22 4 12 14.01 9 11.01" />
                   </svg>
-                  <span>Thank you! Your message has been sent successfully.</span>
+                  <span>{t.contact.form.successAlert}</span>
                 </div>
               )}
 
               <div className="form-group">
                 <label htmlFor="contact-name" className="form-label">
-                  Name
+                  {t.contact.form.name}
                 </label>
                 <input
                   type="text"
@@ -233,7 +237,7 @@ export default function Contact() {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="Your full name"
+                  placeholder={t.contact.form.namePlaceholder}
                   required
                   className="form-input"
                 />
@@ -241,7 +245,7 @@ export default function Contact() {
 
               <div className="form-group">
                 <label htmlFor="contact-email" className="form-label">
-                  Email
+                  {t.contact.form.email}
                 </label>
                 <input
                   type="email"
@@ -249,7 +253,7 @@ export default function Contact() {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="you@example.com"
+                  placeholder={t.contact.form.emailPlaceholder}
                   required
                   className="form-input"
                 />
@@ -257,7 +261,7 @@ export default function Contact() {
 
               <div className="form-group">
                 <label htmlFor="contact-subject" className="form-label">
-                  Subject
+                  {t.contact.form.subject}
                 </label>
                 <input
                   type="text"
@@ -265,7 +269,7 @@ export default function Contact() {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  placeholder="Project inquiry / Opportunity"
+                  placeholder={t.contact.form.subjectPlaceholder}
                   required
                   className="form-input"
                 />
@@ -273,36 +277,48 @@ export default function Contact() {
 
               <div className="form-group">
                 <label htmlFor="contact-message" className="form-label">
-                  Message
+                  {t.contact.form.message}
                 </label>
                 <textarea
                   id="contact-message"
                   name="message"
-                  rows={5}
+                  rows="5"
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Tell me about your project, timeline, or requirements..."
+                  placeholder={t.contact.form.messagePlaceholder}
                   required
                   className="form-input form-textarea"
                 />
               </div>
 
-              <button type="submit" className="btn btn-primary contact-submit-btn">
-                <span>Send Message</span>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <line x1="22" y1="2" x2="11" y2="13" />
-                  <polygon points="22 2 15 22 11 13 2 9 22 2" />
-                </svg>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="btn btn-primary contact-submit-btn"
+              >
+                {isSubmitting ? (
+                  <span>...</span>
+                ) : (
+                  <>
+                    <span>{t.contact.form.send}</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="btn-icon"
+                      aria-hidden="true"
+                    >
+                      <line x1="22" y1="2" x2="11" y2="13" />
+                      <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                    </svg>
+                  </>
+                )}
               </button>
             </form>
           </div>

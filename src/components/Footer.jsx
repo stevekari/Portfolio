@@ -1,7 +1,10 @@
 import React from 'react';
 import './Footer.css';
+import { useLanguage } from '../context/LanguageContext';
 
 const Footer = () => {
+  const { t } = useLanguage();
+
   const scrollToTop = () => {
     const homeSection = document.getElementById('home');
     if (homeSection) {
@@ -12,11 +15,11 @@ const Footer = () => {
   };
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'About', href: '#about' },
-    { name: 'Blog', href: '#blog' },
-    { name: 'Contact', href: '#contact' },
+    { name: t.nav.home, href: '#home' },
+    { name: t.nav.projects, href: '#projects' },
+    { name: t.nav.about, href: '#about' },
+    { name: t.nav.blog, href: '#blog' },
+    { name: t.nav.contact, href: '#contact' },
   ];
 
   const socialLinks = [
@@ -43,7 +46,6 @@ const Footer = () => {
     {
       name: 'LinkedIn',
       href: 'https://www.linkedin.com/in/stephen-karikari',
-
       icon: (
         <svg
           className="footer-social-icon"
@@ -59,7 +61,7 @@ const Footer = () => {
     },
     {
       name: 'Email',
-      href: 'stephenkarikari76@gmail.com',
+      href: 'mailto:stephenkarikari76@email.com',
       icon: (
         <svg
           className="footer-social-icon"
@@ -90,18 +92,18 @@ const Footer = () => {
               <span className="footer-logo-badge">SK</span>
               <span className="footer-logo-name">Stephen Karikari</span>
             </a>
-            <p className="footer-tagline">Java + React Full-Stack Developer</p>
+            <p className="footer-tagline">{t.footer.role}</p>
             <p className="footer-description">
-              Building clean, business-focused web applications.
+              {t.footer.description}
             </p>
           </div>
 
           {/* Middle Column: Quick Links */}
           <div className="footer-col footer-col-links">
-            <h3 className="footer-heading">Quick Links</h3>
+            <h3 className="footer-heading">{t.footer.quickLinks}</h3>
             <ul className="footer-nav-list">
               {navLinks.map((link) => (
-                <li key={link.name} className="footer-nav-item">
+                <li key={link.href} className="footer-nav-item">
                   <a href={link.href} className="footer-link">
                     {link.name}
                   </a>
@@ -112,7 +114,7 @@ const Footer = () => {
 
           {/* Right Column: Connect / Socials */}
           <div className="footer-col footer-col-connect">
-            <h3 className="footer-heading">Connect</h3>
+            <h3 className="footer-heading">{t.footer.connect}</h3>
             <ul className="footer-social-list">
               {socialLinks.map((item) => (
                 <li key={item.name} className="footer-social-item">
@@ -136,17 +138,17 @@ const Footer = () => {
         <div className="footer-bottom">
           <div className="footer-bottom-left">
             <p className="footer-copyright">
-              &copy; 2026 Stephen Karikari. All rights reserved.
+              &copy; 2026 Stephen Karikari. {t.footer.rights}
             </p>
           </div>
           <div className="footer-bottom-right">
-            <span className="footer-built-with">Built with React + Vite</span>
+            <span className="footer-built-with">{t.footer.builtWith}</span>
             <button
               type="button"
               className="footer-back-to-top"
               onClick={scrollToTop}
-              aria-label="Back to Top"
-              title="Back to Top"
+              aria-label={t.footer.backToTop}
+              title={t.footer.backToTop}
             >
               <svg
                 viewBox="0 0 24 24"

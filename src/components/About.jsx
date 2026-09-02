@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import './About.css';
-import { skillCategories, stats } from '../data/data';
+import { skillCategories } from '../data/data';
+import { useLanguage } from '../context/LanguageContext';
 
 function useReveal(options = {}) {
   const ref = useRef(null);
@@ -19,10 +20,17 @@ function useReveal(options = {}) {
 }
 
 export default function About() {
+  const { t } = useLanguage();
   const [headerRef, headerVis] = useReveal();
   const [storyRef, storyVis] = useReveal();
   const [skillsRef, skillsVis] = useReveal();
   const [statsRef, statsVis] = useReveal({ threshold: 0.2 });
+
+  const localizedStats = [
+    { value: '6+', label: t.about.stats.projectsBuilt },
+    { value: '2', label: t.about.stats.languagesMastered },
+    { value: '100%', label: t.about.stats.fullStack },
+  ];
 
   return (
     <section id="about" className="section about-section">
@@ -31,10 +39,8 @@ export default function About() {
           ref={headerRef}
           className={`about-header ${headerVis ? 'reveal-visible' : 'reveal-hidden'}`}
         >
-          <h2 className="section-title">About Me</h2>
-          <p className="section-subtitle">
-            A passionate engineer dedicated to crafting clean, high-performance web applications from end to end.
-          </p>
+          <h2 className="section-title">{t.about.title}</h2>
+          <p className="section-subtitle">{t.about.subtitle}</p>
         </div>
 
         <div className="about-grid">
@@ -57,18 +63,12 @@ export default function About() {
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                 <circle cx="12" cy="7" r="4" />
               </svg>
-              My Journey
+              {t.about.journeyTitle}
             </h3>
             <div className="about-paragraphs">
-              <p>
-                I'm Stephen Karikari, a passionate full-stack developer specializing in Java and React. I believe in building software that solves real business problems — clean, maintainable, and user-focused.
-              </p>
-              <p>
-                With hands-on experience in building complete web applications from database design to frontend deployment, I bring a practical, business-minded approach to every project. I love turning complex requirements into elegant, simple solutions.
-              </p>
-              <p>
-                My goal is to join a forward-thinking company where I can contribute to impactful projects, grow as an engineer, and help build products that make a real difference.
-              </p>
+              <p>{t.about.p1}</p>
+              <p>{t.about.p2}</p>
+              <p>{t.about.p3}</p>
             </div>
           </div>
 
@@ -91,7 +91,7 @@ export default function About() {
                 <polyline points="16 18 22 12 16 6" />
                 <polyline points="8 6 2 12 8 18" />
               </svg>
-              Technical Skills
+              {t.about.skillsTitle}
             </h3>
             <div className="skills-categories">
               {skillCategories.map((group) => (
@@ -115,7 +115,7 @@ export default function About() {
           ref={statsRef}
           className={`about-stats-grid ${statsVis ? 'reveal-visible' : 'reveal-scale'}`}
         >
-          {stats.map((stat, index) => (
+          {localizedStats.map((stat, index) => (
             <div
               key={index}
               className="stat-card"

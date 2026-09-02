@@ -1,10 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import './Projects.css';
 import { projects } from '../data/data';
+import { useLanguage } from '../context/LanguageContext';
 
-function ProjectCard({ project, index, onOpenImage }) {
+function ProjectCard({ project, index, onOpenImage, t }) {
   const cardRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+
+  const localizedItem = t.projects.items[project.id];
+  const projectTitle = localizedItem?.title || project.title;
+  const projectDesc = localizedItem?.description || project.description;
+  const projectBiz = localizedItem?.businessValue || project.businessValue;
 
   useEffect(() => {
     const el = cardRef.current;
@@ -45,14 +51,14 @@ function ProjectCard({ project, index, onOpenImage }) {
         <div
           className={`browser-viewport ${project.image ? 'browser-viewport--has-image' : ''}`}
           style={!project.image ? { background: project.gradient } : undefined}
-          onClick={() => project.image && onOpenImage(project)}
+          onClick={() => project.image && onOpenImage({ ...project, title: projectTitle, description: projectDesc })}
           role={project.image ? 'button' : undefined}
           tabIndex={project.image ? 0 : undefined}
-          aria-label={project.image ? `View full screenshot for ${project.title}` : undefined}
+          aria-label={project.image ? `View full screenshot for ${projectTitle}` : undefined}
           onKeyDown={(e) => {
             if (project.image && (e.key === 'Enter' || e.key === ' ')) {
               e.preventDefault();
-              onOpenImage(project);
+              onOpenImage({ ...project, title: projectTitle, description: projectDesc });
             }
           }}
         >
@@ -60,7 +66,7 @@ function ProjectCard({ project, index, onOpenImage }) {
             <div className="browser-image-wrapper">
               <img
                 src={project.image}
-                alt={`${project.title} interface preview`}
+                alt={`${projectTitle} interface preview`}
                 className="browser-project-image"
                 loading="lazy"
               />
@@ -71,7 +77,7 @@ function ProjectCard({ project, index, onOpenImage }) {
                   <line x1="21" y1="3" x2="14" y2="10" />
                   <line x1="3" y1="21" x2="10" y2="14" />
                 </svg>
-                <span>Click to expand</span>
+                <span>{t.projects.clickToExpand}</span>
               </div>
             </div>
           ) : (
@@ -82,7 +88,7 @@ function ProjectCard({ project, index, onOpenImage }) {
               >
                 {project.mockup?.icon || project.title[0]}
               </div>
-              <p className="app-label">[ {project.mockup?.label || `${project.title} UI`} ]</p>
+              <p className="app-label">[ {project.mockup?.label || `${projectTitle} UI`} ]</p>
               <div className="app-nav-dots">
                 <span className="nav-dot nav-dot--muted" />
                 <span
@@ -107,7 +113,7 @@ function ProjectCard({ project, index, onOpenImage }) {
       <div className="project-card-body">
         {/* Title Row */}
         <div className="project-title-row">
-          <h3 className="project-card-title">{project.title}</h3>
+          <h3 className="project-card-title">{projectTitle}</h3>
           <div className="project-categories">
             {project.categories.map((cat) => (
               <span key={cat} className="project-category">{cat}</span>
@@ -116,11 +122,11 @@ function ProjectCard({ project, index, onOpenImage }) {
         </div>
 
         {/* Description */}
-        <p className="project-card-description">{project.description}</p>
+        <p className="project-card-description">{projectDesc}</p>
 
         {/* Business Value */}
         <blockquote className="project-business-value">
-          <strong>Business value:</strong> {project.businessValue}
+          <strong>{t.projects.businessValueLabel}</strong> {projectBiz}
         </blockquote>
 
         {/* Tech Stack */}
@@ -139,7 +145,7 @@ function ProjectCard({ project, index, onOpenImage }) {
             rel="noopener noreferrer"
             className="project-action-btn project-action-btn--primary"
           >
-            Live Demo
+            {t.projects.liveDemo}
           </a>
           <a
             href={project.codeUrl}
@@ -147,7 +153,7 @@ function ProjectCard({ project, index, onOpenImage }) {
             rel="noopener noreferrer"
             className="project-action-btn project-action-btn--secondary"
           >
-            Source Code
+            {t.projects.sourceCode}
           </a>
         </div>
       </div>
@@ -156,6 +162,7 @@ function ProjectCard({ project, index, onOpenImage }) {
 }
 
 export default function Projects() {
+  const { t } = useLanguage();
   const headerRef = useRef(null);
   const [headerVisible, setHeaderVisible] = useState(false);
   const [activeModalProject, setActiveModalProject] = useState(null);
@@ -204,10 +211,8 @@ export default function Projects() {
           ref={headerRef}
           className={`projects-header ${headerVisible ? 'reveal-visible' : 'reveal-hidden'}`}
         >
-          <h2 className="section-title">Featured Projects</h2>
-          <p className="section-subtitle">
-            Real-world applications I've built from concept to deployment
-          </p>
+          <h2 className="section-title">{t.projects.title}</h2>
+          <p className="section-subtitle">{t.projects.subtitle}</p>
         </div>
 
         <div className="projects-grid">
@@ -217,6 +222,7 @@ export default function Projects() {
               project={project}
               index={i}
               onOpenImage={(proj) => setActiveModalProject(proj)}
+              t={t}
             />
           ))}
         </div>
@@ -239,7 +245,7 @@ export default function Projects() {
             <div className="project-lightbox-header">
               <div className="project-lightbox-title-wrap">
                 <h3 className="project-lightbox-title">{activeModalProject.title}</h3>
-                <span className="project-lightbox-hint">Screenshot Preview</span>
+                <span className="project-lightbox-hint">{t.projects.lightboxPreview}</span>
               </div>
               <button
                 className="project-lightbox-close"
@@ -276,7 +282,7 @@ export default function Projects() {
                   rel="noopener noreferrer"
                   className="project-action-btn project-action-btn--primary"
                 >
-                  Live Demo
+                  {t.projects.liveDemo}
                 </a>
                 <a
                   href={activeModalProject.codeUrl}
@@ -284,7 +290,7 @@ export default function Projects() {
                   rel="noopener noreferrer"
                   className="project-action-btn project-action-btn--secondary"
                 >
-                  Source Code
+                  {t.projects.sourceCode}
                 </a>
               </div>
             </div>
@@ -294,4 +300,3 @@ export default function Projects() {
     </section>
   );
 }
-
