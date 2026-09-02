@@ -129,6 +129,43 @@
   gap: var(--spacing-md);
 }
 
+/* ===== Resume Download Button ===== */
+.navbar-resume-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.navbar-resume-btn:hover {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+  color: var(--color-white);
+}
+
+[data-theme="dark"] .navbar-resume-btn {
+  background-color: #2563EB;
+  border-color: #3B82F6;
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .navbar-resume-btn:hover {
+  background-color: #1D4ED8;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);
+}
+
 /* ===== Mobile Hamburger Toggle Button ===== */
 .navbar-toggle {
   display: none;
@@ -243,6 +280,29 @@
     background-color: #1E293B;
     color: #60A5FA;
   }
+
+  .navbar-mobile-resume-link {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary);
+    font-weight: 700;
+    gap: 8px;
+    margin-top: 6px;
+    border: 1px solid rgba(37, 99, 235, 0.2);
+  }
+
+  [data-theme="dark"] .navbar-mobile-resume-link {
+    background-color: rgba(59, 130, 246, 0.15);
+    color: #60A5FA;
+    border-color: rgba(59, 130, 246, 0.3);
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar-resume-btn {
+    padding: 5px 8px;
+    font-size: 0.72rem;
+    gap: 4px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -256,6 +316,15 @@
   }
 
   .navbar-right {
-    gap: 8px;
+    gap: 6px;
+  }
+
+  .navbar-resume-btn span {
+    display: none;
+  }
+
+  .navbar-resume-btn {
+    padding: 7px;
+    border-radius: var(--radius-md);
   }
 }

@@ -4,6 +4,7 @@ import LanguageSelector from './LanguageSelector';
 import { useLanguage } from '../context/LanguageContext';
 import './Navbar.css';
 import logo from '../assets/ste.png';
+import resumePdf from '../resume/Resume.pdf';
 
 export default function Navbar() {
   const { t } = useLanguage();
@@ -79,6 +80,33 @@ export default function Navbar() {
           <LanguageSelector />
           <ThemeToggle />
 
+          {/* Desktop Resume Download Button */}
+          <a
+            href={resumePdf}
+            download="Stephen_Karikari_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="navbar-resume-btn"
+            title={t.nav.resume || 'Resume'}
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            <span>{t.nav.resume || 'Resume'}</span>
+          </a>
+
           {/* Mobile Hamburger Button */}
           <button
             type="button"
@@ -140,6 +168,33 @@ export default function Navbar() {
               </a>
             </li>
           ))}
+          <li className="navbar-mobile-item navbar-mobile-resume">
+            <a
+              href={resumePdf}
+              download="Stephen_Karikari_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="navbar-mobile-link navbar-mobile-resume-link"
+              onClick={closeMenu}
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+              <span>{t.nav.resume || 'Resume'} (PDF)</span>
+            </a>
+          </li>
         </ul>
       </nav>
     </header>

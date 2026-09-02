@@ -15,6 +15,7 @@ export const translations = {
       about: 'About',
       blog: 'Blog',
       contact: 'Contact',
+      resume: 'Resume',
     },
     hero: {
       status: 'Available for new product work — 2026',
@@ -32,6 +33,7 @@ export const translations = {
       viewProjects: 'View Projects',
       github: 'GitHub',
       linkedin: 'LinkedIn',
+      resume: 'Resume',
       diagram: {
         reactTitle: 'React UI — Kiosk & Web',
         reactDesc: 'Components • State • Clean UI • Boxes',
@@ -186,6 +188,7 @@ export const translations = {
       about: 'Sobre Mí',
       blog: 'Blog',
       contact: 'Contacto',
+      resume: 'Currículum',
     },
     hero: {
       status: 'Disponible para nuevos proyectos — 2026',
@@ -203,6 +206,7 @@ export const translations = {
       viewProjects: 'Ver Proyectos',
       github: 'GitHub',
       linkedin: 'LinkedIn',
+      resume: 'Currículum',
       diagram: {
         reactTitle: 'React UI — Kiosco & Web',
         reactDesc: 'Componentes • Estado • UI Limpia • Cajas',
@@ -357,6 +361,7 @@ export const translations = {
       about: 'À Propos',
       blog: 'Blog',
       contact: 'Contact',
+      resume: 'CV',
     },
     hero: {
       status: 'Disponible pour de nouveaux projets — 2026',
@@ -374,6 +379,7 @@ export const translations = {
       viewProjects: 'Voir les Projets',
       github: 'GitHub',
       linkedin: 'LinkedIn',
+      resume: 'CV',
       diagram: {
         reactTitle: 'UI React — Kiosque & Web',
         reactDesc: 'Composants • État • UI Épurée • Boîtes',
@@ -528,6 +534,7 @@ export const translations = {
       about: 'Over Mij',
       blog: 'Blog',
       contact: 'Contact',
+      resume: 'CV',
     },
     hero: {
       status: 'Beschikbaar voor nieuwe projecten — 2026',
@@ -545,6 +552,7 @@ export const translations = {
       viewProjects: 'Bekijk Projecten',
       github: 'GitHub',
       linkedin: 'LinkedIn',
+      resume: 'CV',
       diagram: {
         reactTitle: 'React UI — Kiosk & Web',
         reactDesc: 'Componenten • State • Strakke UI • Vakken',
@@ -699,6 +707,7 @@ export const translations = {
       about: 'Sobre',
       blog: 'Blog',
       contact: 'Contato',
+      resume: 'Currículo',
     },
     hero: {
       status: 'Disponível para novos projetos — 2026',
@@ -716,6 +725,7 @@ export const translations = {
       viewProjects: 'Ver Projetos',
       github: 'GitHub',
       linkedin: 'LinkedIn',
+      resume: 'Currículo',
       diagram: {
         reactTitle: 'React UI — Quiosque & Web',
         reactDesc: 'Componentes • Estado • UI Limpa • Caixas',
@@ -870,6 +880,7 @@ export const translations = {
       about: 'Über Mich',
       blog: 'Blog',
       contact: 'Kontakt',
+      resume: 'Lebenslauf',
     },
     hero: {
       status: 'Verfügbar für neue Projekte — 2026',
@@ -887,6 +898,7 @@ export const translations = {
       viewProjects: 'Projekte ansehen',
       github: 'GitHub',
       linkedin: 'LinkedIn',
+      resume: 'Lebenslauf',
       diagram: {
         reactTitle: 'React UI — Kiosk & Web',
         reactDesc: 'Komponenten • State • Klare UI • Boxen',

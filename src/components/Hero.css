@@ -301,6 +301,27 @@
   color: #0A66C2;
 }
 
+.hero-btn-resume {
+  color: var(--color-primary);
+  border-color: rgba(37, 99, 235, 0.3);
+}
+
+.hero-btn-resume:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+[data-theme="dark"] .hero-btn-resume {
+  color: #60A5FA;
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+[data-theme="dark"] .hero-btn-resume:hover {
+  background-color: rgba(59, 130, 246, 0.15);
+  border-color: #60A5FA;
+}
+
 /* ===== Right Column: Architecture Diagram ===== */
 .hero-right {
   display: flex;
