@@ -16,6 +16,7 @@ export default function Navbar() {
     { name: t.nav.projects, href: '#projects' },
     { name: t.nav.about, href: '#about' },
     { name: t.nav.blog, href: '#blog' },
+    { name: t.nav.reviews || 'Reviews', href: '#reviews' },
     { name: t.nav.contact, href: '#contact' },
   ];
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import './Footer.css';
 import { useLanguage } from '../context/LanguageContext';
+import logo from '../assets/ste.png';
 
 const Footer = () => {
   const { t } = useLanguage();
@@ -19,6 +20,7 @@ const Footer = () => {
     { name: t.nav.projects, href: '#projects' },
     { name: t.nav.about, href: '#about' },
     { name: t.nav.blog, href: '#blog' },
+    { name: t.nav.reviews || 'Reviews', href: '#reviews' },
     { name: t.nav.contact, href: '#contact' },
   ];
 
@@ -89,7 +91,10 @@ const Footer = () => {
           {/* Left Column: Brand & Bio */}
           <div className="footer-col footer-col-brand">
             <a href="#home" className="footer-logo" aria-label="Stephen Karikari Home">
-              <span className="footer-logo-badge">SK</span>
+              {/* <span className="footer-logo-badge">SK</span> */}
+              <span className="footer-logo-badge">
+                <img src={logo} alt="Stephen Karikari" />
+              </span>
               <span className="footer-logo-name">Stephen Karikari</span>
             </a>
             <p className="footer-tagline">{t.footer.role}</p>
