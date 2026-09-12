@@ -2,7 +2,7 @@ import chatImg from '../assets/chat.png';
 import budgetImg from '../assets/budget.png';
 import portalImg from '../assets/portal.png';
 import cafeImg from '../assets/cafe.png';
-import pageImg from '../assets/page.png';
+import finishImg from '../assets/sample.png';
 import workImg from '../assets/work.png';
 import shopImg from '../assets/shop.png';
 
@@ -16,6 +16,26 @@ export const navLinks = [
 
 
 export const projects = [
+  {
+    id: 7,
+    title: 'color detector',
+    image: finishImg,
+    description:
+      'Building ColorDetector taught me that making a feature work and designing it so that it remains maintainable are two different problems. I learned to separate UI logic from domain logic, validate API inputs, and test color calculations against known values',
+    businessValue:
+      'Build me an industrial color matching quality control app for textile production.',
+    categories: ['Management', 'CRUD'],
+    tags: ['Java', 'Spring Boot', 'React', 'REST API'],
+    codeUrl: 'https://github.com/stevekari/colorDetector.git',
+    liveUrl: '#',
+    gradient: 'linear-gradient(135deg, #0b83cd 0%, #d61919 100%)',
+    mockup: {
+      url: 'color.stephen.local',
+      icon: 'C',
+      label: 'Color Matcher',
+      accentColor: '#0EA5E9',
+    },
+  },
   {
     id: 1,
     title: 'GioChat',
@@ -136,6 +156,7 @@ export const projects = [
       accentColor: '#0EA5E9',
     },
   },
+  
 ];
 
 export const techStack = [
@@ -240,11 +261,11 @@ export const skillCategories = [
 
 export const stats = [
   {
-    value: '6+',
+    value: '7+',
     label: 'Projects Built',
   },
   {
-    value: '2',
+    value: '3+',
     label: 'Languages Mastered',
   },
   {

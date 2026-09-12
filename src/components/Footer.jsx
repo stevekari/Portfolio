@@ -7,17 +7,17 @@ const Footer = () => {
   const { t } = useLanguage();
 
   const scrollToTop = () => {
-    const homeSection = document.getElementById('home');
-    if (homeSection) {
-      homeSection.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
   };
 
   const navLinks = [
     { name: t.nav.home, href: '#home' },
     { name: t.nav.projects, href: '#projects' },
+    { name: t.nav.engineering || 'Engineering', href: '#engineering' },
     { name: t.nav.about, href: '#about' },
     { name: t.nav.blog, href: '#blog' },
     { name: t.nav.reviews || 'Reviews', href: '#reviews' },
@@ -147,13 +147,12 @@ const Footer = () => {
             </p>
           </div>
           <div className="footer-bottom-right">
-            <span className="footer-built-with">{t.footer.builtWith}</span>
             <button
               type="button"
               className="footer-back-to-top"
               onClick={scrollToTop}
-              aria-label={t.footer.backToTop}
-              title={t.footer.backToTop}
+              aria-label={t.footer.backToTop || 'Back to top'}
+              title={t.footer.backToTop || 'Back to top'}
             >
               <svg
                 viewBox="0 0 24 24"

@@ -10,14 +10,14 @@
 /* ===== Scroll Reveal ===== */
 .reveal-hidden {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(0, 18px, 0);
+  transition: opacity var(--transition-reveal), transform var(--transition-reveal);
+  will-change: opacity, transform;
 }
 
 .reveal-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
 }
 
 /* ===== Projects Grid ===== */
@@ -32,31 +32,47 @@
   display: flex;
   flex-direction: column;
   background-color: var(--color-white);
-  border: 1px solid var(--color-gray-200);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-    border-color 0.3s ease,
-    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-fast),
+    opacity var(--transition-reveal);
   opacity: 0;
-  transform: translateY(40px);
+  transform: translate3d(0, 16px, 0);
+  will-change: transform, box-shadow;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+[data-theme="dark"] .project-card {
+  background-color: #121215;
+  border-color: #27272A;
 }
 
 .project-card--visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
 }
 
-.project-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-  border-color: var(--color-gray-300);
+@media (hover: hover) {
+  .project-card:hover {
+    transform: translate3d(0, -4px, 0);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(217, 119, 6, 0.35);
+  }
+
+  [data-theme="dark"] .project-card:hover {
+    border-color: rgba(245, 158, 11, 0.45);
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6);
+  }
 }
 
-.project-card--visible:hover {
-  transform: translateY(-8px);
+.project-card:active {
+  transform: scale(0.99);
+  transition-duration: var(--transition-fast);
 }
 
 /* ===== Browser Mockup ===== */
@@ -165,11 +181,14 @@
   object-fit: cover;
   object-position: top center;
   display: block;
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform var(--transition-base);
+  will-change: transform;
 }
 
-.project-card:hover .browser-project-image {
-  transform: scale(1.04);
+@media (hover: hover) {
+  .project-card:hover .browser-project-image {
+    transform: scale(1.03);
+  }
 }
 
 .browser-image-expand-btn {

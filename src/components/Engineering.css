@@ -1,0 +1,385 @@
+/* ===== Engineering & Capabilities Section ===== */
+.engineering-section {
+  background-color: var(--color-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.engineering-header {
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto var(--spacing-2xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.engineering-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background-color: var(--color-gray-100);
+  border: 1px solid var(--color-gray-200);
+  border-radius: 9999px;
+  font-size: var(--font-size-xs);
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+[data-theme="dark"] .engineering-badge {
+  background-color: #1E293B;
+  border-color: #334155;
+  color: #60A5FA;
+}
+
+/* ===== 4 Pillars Grid ===== */
+.engineering-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-3xl);
+}
+
+.pillar-card {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem 2rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-fast), opacity var(--transition-reveal);
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  will-change: transform, box-shadow;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+[data-theme="dark"] .pillar-card {
+  background-color: #121215;
+  border-color: #27272A;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.pillar-card--visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (hover: hover) {
+  .pillar-card:hover {
+    transform: translate3d(0, -4px, 0);
+    box-shadow: var(--shadow-md);
+  }
+
+  .pillar-card--frontend:hover {
+    border-color: #2563EB;
+  }
+
+  .pillar-card--backend:hover {
+    border-color: #059669;
+  }
+
+  .pillar-card--mobile:hover {
+    border-color: #0891B2;
+  }
+
+  .pillar-card--devops:hover {
+    border-color: #D97706;
+  }
+
+  [data-theme="dark"] .pillar-card--frontend:hover {
+    border-color: #3B82F6;
+  }
+
+  [data-theme="dark"] .pillar-card--backend:hover {
+    border-color: #10B981;
+  }
+
+  [data-theme="dark"] .pillar-card--mobile:hover {
+    border-color: #06B6D4;
+  }
+
+  [data-theme="dark"] .pillar-card--devops:hover {
+    border-color: #F59E0B;
+  }
+}
+
+.pillar-card:active {
+  transform: scale(0.99);
+  transition-duration: var(--transition-fast);
+}
+
+.pillar-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 1rem;
+}
+
+.pillar-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-gray-100);
+  color: var(--color-primary);
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+
+[data-theme="dark"] .pillar-icon-box {
+  background-color: #1E293B;
+  color: #60A5FA;
+}
+
+.pillar-card:hover .pillar-icon-box {
+  transform: scale(1.08);
+}
+
+.pillar-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pillar-title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-dark);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+[data-theme="dark"] .pillar-title {
+  color: #F8FAFC;
+}
+
+.pillar-highlight {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-gray-500);
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+}
+
+[data-theme="dark"] .pillar-highlight {
+  color: #94A3B8;
+}
+
+/* Monospace Tech Tags */
+.pillar-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 1rem;
+}
+
+.pillar-tag {
+  display: inline-block;
+  padding: 4px 10px;
+  background-color: var(--color-gray-50);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-sm);
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-gray-800);
+  letter-spacing: -0.01em;
+}
+
+[data-theme="dark"] .pillar-tag {
+  background-color: #1E293B;
+  border-color: #334155;
+  color: #E2E8F0;
+}
+
+.pillar-desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-600);
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 400;
+}
+
+[data-theme="dark"] .pillar-desc {
+  color: #94A3B8;
+}
+
+/* ===== Currently Building / "Now" Card ===== */
+.now-card {
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.04) 0%, rgba(5, 150, 105, 0.04) 100%), var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 2.25rem 2.5rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-fast), opacity var(--transition-reveal);
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+  will-change: transform, box-shadow;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+[data-theme="dark"] .now-card {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.06) 0%, rgba(16, 185, 129, 0.05) 100%), #121215;
+  border-color: #27272A;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.now-card--visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (hover: hover) {
+  .now-card:hover {
+    transform: translate3d(0, -3px, 0);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(217, 119, 6, 0.35);
+  }
+
+  [data-theme="dark"] .now-card:hover {
+    border-color: rgba(245, 158, 11, 0.4);
+  }
+}
+
+.now-card:active {
+  transform: scale(0.99);
+  transition-duration: var(--transition-fast);
+}
+
+.now-card-header {
+  margin-bottom: 1.75rem;
+}
+
+.now-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  background-color: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 9999px;
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #059669;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+[data-theme="dark"] .now-status-pill {
+  background-color: rgba(16, 185, 129, 0.18);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: #34D399;
+}
+
+.now-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: #10B981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+.now-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  color: var(--color-dark);
+  margin-bottom: 4px;
+  letter-spacing: -0.025em;
+}
+
+[data-theme="dark"] .now-title {
+  color: #F8FAFC;
+}
+
+.now-subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+  margin: 0;
+}
+
+[data-theme="dark"] .now-subtitle {
+  color: #94A3B8;
+}
+
+/* Now Items Grid */
+.now-items-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+}
+
+.now-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 1rem 1.25rem;
+  background-color: var(--color-gray-50);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  transition: all var(--transition-fast);
+}
+
+[data-theme="dark"] .now-item {
+  background-color: #1E293B;
+  border-color: #334155;
+}
+
+.now-item:hover {
+  background-color: var(--color-white);
+  border-color: var(--color-primary);
+  transform: translateX(3px);
+}
+
+[data-theme="dark"] .now-item:hover {
+  background-color: #243247;
+  border-color: #3B82F6;
+}
+
+.now-item-icon {
+  font-size: 1.25rem;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+.now-item-text {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-dark);
+  line-height: 1.5;
+}
+
+[data-theme="dark"] .now-item-text {
+  color: #E2E8F0;
+}
+
+/* ===== Responsive Breakpoints ===== */
+@media (max-width: 900px) {
+  .engineering-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+  }
+
+  .now-items-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .pillar-card {
+    padding: 1.25rem 1.5rem;
+  }
+
+  .now-card {
+    padding: 1.5rem;
+  }
+}

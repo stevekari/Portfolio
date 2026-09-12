@@ -3,14 +3,15 @@ import { useLanguage } from '../context/LanguageContext';
 import './Reviews.css';
 
 const STORAGE_KEY = 'portfolio_user_reviews';
+const DELETED_KEY = 'portfolio_deleted_reviews';
 
 // Deterministic color palette for avatar initials
 const AVATAR_COLORS = [
-  '#2563EB', // Blue
+  '#D97706', // Warm Gold
   '#059669', // Emerald
+  '#2563EB', // Blue
+  '#9F1239', // Burgundy
   '#7C3AED', // Purple
-  '#D97706', // Amber
-  '#DC2626', // Red
   '#0891B2', // Cyan
   '#4F46E5', // Indigo
 ];
@@ -28,6 +29,15 @@ function getInitials(name = '') {
   const parts = name.trim().split(/\s+/);
   if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
   return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
+function detectCategoryKey(cat = '') {
+  const lower = String(cat).toLowerCase();
+  if (lower.includes('colleague') || lower.includes('collaborator') || lower.includes('colega') || lower.includes('collègue') || lower.includes('kollege') || lower.includes('samenwerker')) return 'collaborator';
+  if (lower.includes('recruiter') || lower.includes('hiring') || lower.includes('rh') || lower.includes('reclutador') || lower.includes('personal')) return 'recruiter';
+  if (lower.includes('peer') || lower.includes('fellow') || lower.includes('compañero') || lower.includes('pair') || lower.includes('mede-ontwikkelaar') || lower.includes('entwickler')) return 'peer';
+  if (lower.includes('client') || lower.includes('product') || lower.includes('cliente') || lower.includes('klant') || lower.includes('kunde')) return 'client';
+  return 'visitor';
 }
 
 // Star rating icon renderer
@@ -75,9 +85,10 @@ function StarRating({ rating = 5, max = 5, size = 16, interactive = false, onHov
 export default function Reviews() {
   const { t, language } = useLanguage();
   const sectionRef = useRef(null);
+  const formRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
-  // User submitted custom reviews from localStorage
+  // User submitted custom and edited reviews from localStorage
   const [userReviews, setUserReviews] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -88,7 +99,19 @@ export default function Reviews() {
     return [];
   });
 
+  // Deleted review IDs to hide
+  const [deletedIds, setDeletedIds] = useState(() => {
+    try {
+      const saved = localStorage.getItem(DELETED_KEY);
+      if (saved) return JSON.parse(saved);
+    } catch {
+      // ignore
+    }
+    return [];
+  });
+
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [editingReviewId, setEditingReviewId] = useState(null);
   const [selectedFilter, setSelectedFilter] = useState('all'); // 'all' | '5' | '4'
 
   // Form states
@@ -101,7 +124,7 @@ export default function Reviews() {
   });
   const [hoverRating, setHoverRating] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
 
   // Intersection observer for section animation
   useEffect(() => {
@@ -120,9 +143,13 @@ export default function Reviews() {
     return () => observer.disconnect();
   }, []);
 
-  // Merge default reviews from active translation with user reviews
-  const defaultReviews = t.reviews?.defaultReviews || [];
-  const allReviews = [...userReviews, ...defaultReviews];
+  // Merge default reviews from active translation with user reviews, omitting deleted reviews
+  const defaultReviews = (t.reviews?.defaultReviews || []).filter(
+    (r) => !deletedIds.includes(r.id) && !userReviews.some((u) => u.id === r.id)
+  );
+
+  const activeUserReviews = userReviews.filter((r) => !deletedIds.includes(r.id));
+  const allReviews = [...activeUserReviews, ...defaultReviews];
 
   // Calculate statistics
   const totalCount = allReviews.length;
@@ -153,13 +180,75 @@ export default function Reviews() {
     }));
   };
 
+  const handleOpenNewForm = () => {
+    setEditingReviewId(null);
+    setFormData({
+      name: '',
+      role: '',
+      category: 'collaborator',
+      comment: '',
+      rating: 5,
+    });
+    setSuccessMessage('');
+    setIsFormOpen((prev) => !prev);
+  };
+
+  const handleEditReview = (review) => {
+    setEditingReviewId(review.id);
+    setFormData({
+      name: review.name || '',
+      role: review.role || '',
+      category: review.categoryKey || detectCategoryKey(review.category),
+      comment: review.comment || '',
+      rating: Number(review.rating) || 5,
+    });
+    setSuccessMessage('');
+    setIsFormOpen(true);
+
+    setTimeout(() => {
+      formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
+  };
+
+  const handleCancelEdit = () => {
+    setEditingReviewId(null);
+    setFormData({
+      name: '',
+      role: '',
+      category: 'collaborator',
+      comment: '',
+      rating: 5,
+    });
+    setIsFormOpen(false);
+  };
+
+  const handleDeleteReview = (reviewId) => {
+    const confirmMsg = t.reviews?.deleteConfirm || 'Are you sure you want to delete this recommendation?';
+    if (window.confirm(confirmMsg)) {
+      const updatedDeleted = [...deletedIds, reviewId];
+      setDeletedIds(updatedDeleted);
+      const updatedUserReviews = userReviews.filter((r) => r.id !== reviewId);
+      setUserReviews(updatedUserReviews);
+
+      try {
+        localStorage.setItem(DELETED_KEY, JSON.stringify(updatedDeleted));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedUserReviews));
+      } catch {
+        // ignore
+      }
+
+      if (editingReviewId === reviewId) {
+        handleCancelEdit();
+      }
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!formData.name.trim() || !formData.comment.trim()) return;
 
     setIsSubmitting(true);
 
-    // Format current localized date string
     const now = new Date();
     const dateFormatted = now.toLocaleDateString(language || 'en', {
       month: 'long',
@@ -169,40 +258,95 @@ export default function Reviews() {
     const categoryLabel =
       t.reviews?.form?.categoryOptions?.[formData.category] || formData.category;
 
-    const newReview = {
-      id: `user-${Date.now()}`,
-      name: formData.name.trim(),
-      role: formData.role.trim() || 'Visitor',
-      category: categoryLabel,
-      rating: Number(formData.rating) || 5,
-      date: dateFormatted,
-      comment: formData.comment.trim(),
-    };
+    if (editingReviewId) {
+      // Editing existing review
+      const isAlreadyInUserReviews = userReviews.some((r) => r.id === editingReviewId);
 
-    const updatedUserReviews = [newReview, ...userReviews];
-    setUserReviews(updatedUserReviews);
+      let updatedUserReviews;
+      if (isAlreadyInUserReviews) {
+        updatedUserReviews = userReviews.map((r) => {
+          if (r.id === editingReviewId) {
+            return {
+              ...r,
+              name: formData.name.trim(),
+              role: formData.role.trim() || 'Visitor',
+              category: categoryLabel,
+              categoryKey: formData.category,
+              rating: Number(formData.rating) || 5,
+              comment: formData.comment.trim(),
+              isEdited: true,
+            };
+          }
+          return r;
+        });
+      } else {
+        // Was a default review, promote to user review with updated values
+        const editedReview = {
+          id: editingReviewId,
+          name: formData.name.trim(),
+          role: formData.role.trim() || 'Visitor',
+          category: categoryLabel,
+          categoryKey: formData.category,
+          rating: Number(formData.rating) || 5,
+          date: dateFormatted,
+          comment: formData.comment.trim(),
+          isEdited: true,
+        };
+        updatedUserReviews = [editedReview, ...userReviews];
+      }
 
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedUserReviews));
-    } catch {
-      // ignore
+      setUserReviews(updatedUserReviews);
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedUserReviews));
+      } catch {
+        // ignore
+      }
+
+      setIsSubmitting(false);
+      setSuccessMessage(t.reviews?.form?.updatedAlert || 'Your recommendation has been updated successfully!');
+
+      setTimeout(() => {
+        setSuccessMessage('');
+        setIsFormOpen(false);
+        setEditingReviewId(null);
+      }, 3000);
+    } else {
+      // Adding brand new review
+      const newReview = {
+        id: `user-${Date.now()}`,
+        name: formData.name.trim(),
+        role: formData.role.trim() || 'Visitor',
+        category: categoryLabel,
+        categoryKey: formData.category,
+        rating: Number(formData.rating) || 5,
+        date: dateFormatted,
+        comment: formData.comment.trim(),
+      };
+
+      const updatedUserReviews = [newReview, ...userReviews];
+      setUserReviews(updatedUserReviews);
+
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedUserReviews));
+      } catch {
+        // ignore
+      }
+
+      setIsSubmitting(false);
+      setSuccessMessage(t.reviews?.form?.successAlert || 'Thank you! Your recommendation has been published.');
+      setFormData({
+        name: '',
+        role: '',
+        category: 'collaborator',
+        comment: '',
+        rating: 5,
+      });
+
+      setTimeout(() => {
+        setSuccessMessage('');
+        setIsFormOpen(false);
+      }, 3000);
     }
-
-    setIsSubmitting(false);
-    setShowSuccess(true);
-    setFormData({
-      name: '',
-      role: '',
-      category: 'collaborator',
-      comment: '',
-      rating: 5,
-    });
-
-    // Automatically close success alert after 5 seconds
-    setTimeout(() => {
-      setShowSuccess(false);
-      setIsFormOpen(false);
-    }, 3500);
   };
 
   return (
@@ -240,11 +384,11 @@ export default function Reviews() {
           <div className="summary-cta-wrap">
             <button
               type="button"
-              className={`reviews-toggle-btn ${isFormOpen ? 'reviews-toggle-btn--active' : ''}`}
-              onClick={() => setIsFormOpen((prev) => !prev)}
+              className={`reviews-toggle-btn ${isFormOpen && !editingReviewId ? 'reviews-toggle-btn--active' : ''}`}
+              onClick={handleOpenNewForm}
             >
               <span>
-                {isFormOpen
+                {isFormOpen && !editingReviewId
                   ? t.reviews?.hideFormBtn || 'Close Form'
                   : t.reviews?.leaveReviewBtn || '⭐ Leave a Review / Recommendation'}
               </span>
@@ -252,19 +396,42 @@ export default function Reviews() {
           </div>
         </div>
 
-        {/* Expandable Review Form */}
+        {/* Expandable Review Form (Create & Edit Mode) */}
         {isFormOpen && (
-          <div className="review-form-container">
+          <div className="review-form-container" ref={formRef}>
+            {editingReviewId && (
+              <div className="review-editing-banner">
+                <span className="editing-indicator-dot" />
+                <span>
+                  {t.reviews?.form?.editTitle || 'Editing Recommendation'} ({formData.name || '...'})
+                </span>
+                <button
+                  type="button"
+                  className="review-edit-cancel-link"
+                  onClick={handleCancelEdit}
+                >
+                  {t.reviews?.cancelEdit || 'Cancel Edit'}
+                </button>
+              </div>
+            )}
+
             <form className="review-form" onSubmit={handleSubmit}>
               <div className="form-header-row">
-                <h3 className="review-form-title">{t.reviews?.form?.title || 'Write a Recommendation'}</h3>
+                <h3 className="review-form-title">
+                  {editingReviewId
+                    ? t.reviews?.form?.editTitle || 'Edit Your Recommendation'
+                    : t.reviews?.form?.title || 'Write a Recommendation'}
+                </h3>
                 <p className="review-form-desc">
-                  {t.reviews?.form?.desc ||
-                    'Share your feedback, experience collaborating with Stephen, or thoughts on his projects.'}
+                  {editingReviewId
+                    ? t.reviews?.form?.editDesc ||
+                      'Make adjustments or correct any mistakes in your recommendation below.'
+                    : t.reviews?.form?.desc ||
+                      'Share your feedback, experience collaborating with Stephen, or thoughts on his projects.'}
                 </p>
               </div>
 
-              {showSuccess && (
+              {successMessage && (
                 <div className="review-alert-success" role="alert">
                   <svg
                     width="18"
@@ -280,10 +447,7 @@ export default function Reviews() {
                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                     <polyline points="22 4 12 14.01 9 11.01" />
                   </svg>
-                  <span>
-                    {t.reviews?.form?.successAlert ||
-                      'Thank you! Your recommendation and star rating have been published.'}
-                  </span>
+                  <span>{successMessage}</span>
                 </div>
               )}
 
@@ -392,7 +556,7 @@ export default function Reviews() {
                 />
               </div>
 
-              {/* Submit Button */}
+              {/* Submit & Cancel Buttons */}
               <div className="form-actions-row">
                 <button
                   type="submit"
@@ -400,15 +564,19 @@ export default function Reviews() {
                   className="btn btn-primary review-submit-btn"
                 >
                   {isSubmitting
-                    ? t.reviews?.form?.submitting || 'Submitting...'
+                    ? t.reviews?.form?.submitting || 'Saving...'
+                    : editingReviewId
+                    ? t.reviews?.form?.updateSubmit || 'Save Changes'
                     : t.reviews?.form?.submit || 'Submit Recommendation'}
                 </button>
                 <button
                   type="button"
                   className="btn btn-secondary review-cancel-btn"
-                  onClick={() => setIsFormOpen(false)}
+                  onClick={editingReviewId ? handleCancelEdit : () => setIsFormOpen(false)}
                 >
-                  {t.reviews?.hideFormBtn || 'Close Form'}
+                  {editingReviewId
+                    ? t.reviews?.cancelEdit || 'Cancel Edit'
+                    : t.reviews?.hideFormBtn || 'Close Form'}
                 </button>
               </div>
             </form>
@@ -449,14 +617,15 @@ export default function Reviews() {
               <p>{t.reviews?.emptyState || 'No reviews found for this filter.'}</p>
             </div>
           ) : (
-            filteredReviews.map((item, index) => {
+            filteredReviews.map((item) => {
               const avatarBg = getAvatarColor(item.name);
               const initials = getInitials(item.name);
+              const isBeingEdited = editingReviewId === item.id;
+
               return (
                 <article
                   key={item.id}
-                  className={`review-card ${isVisible ? 'review-card--visible' : ''}`}
-                  style={{ transitionDelay: `${index * 100}ms` }}
+                  className={`review-card ${isVisible ? 'review-card--visible' : ''} ${isBeingEdited ? 'review-card--editing' : ''}`}
                 >
                   {/* Card Header: Author Info & Rating */}
                   <div className="review-card-header">
@@ -471,12 +640,67 @@ export default function Reviews() {
                       <h4 className="review-author-name">{item.name}</h4>
                       <p className="review-author-role">{item.role}</p>
                     </div>
+
+                    {/* Edit & Delete Action Buttons */}
+                    <div className="review-card-actions">
+                      <button
+                        type="button"
+                        className="review-action-btn review-action-btn--edit"
+                        onClick={() => handleEditReview(item)}
+                        title={t.reviews?.edit || 'Edit recommendation'}
+                        aria-label={`${t.reviews?.edit || 'Edit'} ${item.name}`}
+                      >
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden="true"
+                        >
+                          <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                          <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                        </svg>
+                      </button>
+                      <button
+                        type="button"
+                        className="review-action-btn review-action-btn--delete"
+                        onClick={() => handleDeleteReview(item.id)}
+                        title={t.reviews?.delete || 'Delete recommendation'}
+                        aria-label={`${t.reviews?.delete || 'Delete'} ${item.name}`}
+                      >
+                        <svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden="true"
+                        >
+                          <polyline points="3 6 5 6 21 6" />
+                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
 
                   {/* Stars & Date Row */}
                   <div className="review-rating-row">
                     <StarRating rating={Number(item.rating) || 5} size={15} />
-                    <time className="review-date">{item.date}</time>
+                    <div className="review-date-wrap">
+                      <time className="review-date">{item.date}</time>
+                      {item.isEdited && (
+                        <span className="review-edited-tag">
+                          ({t.reviews?.editedBadge || 'Edited'})
+                        </span>
+                      )}
+                    </div>
                   </div>
 
                   {/* Comment Body */}
@@ -513,4 +737,3 @@ export default function Reviews() {
     </section>
   );
 }
-

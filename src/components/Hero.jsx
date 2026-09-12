@@ -14,7 +14,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="home" className="hero-section">
+    <section id="home" className="hero hero-section">
       {/* Background Decorative Ambient Glow */}
       <div className="hero-gradient-circle" aria-hidden="true" />
 
@@ -29,12 +29,12 @@ export default function Hero() {
             </div>
 
             {/* Main Headline */}
-            <h1 className="hero-title hero-animate hero-animate-2">
-              {t.hero.titleStart}{' '}
-              <span className="hero-title-muted">
-                {t.hero.titleMuted}
-              </span>
-            </h1>
+            <h3 className="hero-title hero-animate hero-animate-2">
+              {t.hero.titleStart}
+              {t.hero.titleMuted ? (
+                <span className="hero-title-muted"> {t.hero.titleMuted}</span>
+              ) : null}
+            </h3>
 
             {/* Monospace Tagline & Description */}
             <div className="hero-description-wrap hero-animate hero-animate-3">
@@ -64,14 +64,16 @@ export default function Hero() {
 
             {/* Action CTA Buttons */}
             <div className="hero-actions hero-animate hero-animate-5">
+              {/* 1. View my work */}
               <a href="#projects" className="hero-btn hero-btn-primary">
-                <span>{t.hero.viewProjects}</span>
+                <span>{t.hero.viewWork || 'View my work'}</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <line x1="5" y1="12" x2="19" y2="12" />
                   <polyline points="12 5 19 12 12 19" />
                 </svg>
               </a>
 
+              {/* 2. GitHub */}
               <a
                 href="https://github.com/stevekari"
                 target="_blank"
@@ -82,21 +84,10 @@ export default function Hero() {
                   <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
                   <path d="M9 18c-4.51 2-5-2-7-2" />
                 </svg>
-                <span>{t.hero.github}</span>
+                <span>{t.hero.github || 'GitHub'}</span>
               </a>
 
-              <a
-                href="https://www.linkedin.com/in/stephen-karikari/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hero-btn hero-btn-secondary hero-btn-linkedin"
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.63 1.63 0 1 0 0-3.26 1.63 1.63 0 0 0 0 3.26m1.39 9.74v-8.37H5.07v8.37h2.78z" />
-                </svg>
-                <span>{t.hero.linkedin}</span>
-              </a>
-
+              {/* 3. Download CV */}
               <a
                 href={resumePdf}
                 download="Stephen_Karikari_Resume.pdf"
@@ -109,7 +100,16 @@ export default function Hero() {
                   <polyline points="7 10 12 15 17 10" />
                   <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
-                <span>{t.hero.resume || 'Resume'}</span>
+                <span>{t.hero.downloadCv || 'Download CV'}</span>
+              </a>
+
+              {/* 4. Contact me */}
+              <a href="#contact" className="hero-btn hero-btn-secondary hero-btn-contact">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+                <span>{t.hero.contactMe || 'Contact me'}</span>
               </a>
             </div>
           </div>

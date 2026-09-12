@@ -28,7 +28,7 @@ export default function About() {
 
   const localizedStats = [
     { value: '6+', label: t.about.stats.projectsBuilt },
-    { value: '2', label: t.about.stats.languagesMastered },
+    { value: '3+', label: t.about.stats.languagesMastered },
     { value: '100%', label: t.about.stats.fullStack },
   ];
 
@@ -69,6 +69,8 @@ export default function About() {
               <p>{t.about.p1}</p>
               <p>{t.about.p2}</p>
               <p>{t.about.p3}</p>
+              {t.about.p4 && <p>{t.about.p4}</p>}
+              {t.about.p5 && <p>{t.about.p5}</p>}
             </div>
           </div>
 
