@@ -1,0 +1,433 @@
+/* ===== PWA Install Banner & Modal Styles ===== */
+.pwa-install-banner-container {
+  position: fixed;
+  bottom: 96px;
+  right: 28px;
+  z-index: 890;
+  max-width: 440px;
+  width: calc(100% - 56px);
+  pointer-events: auto;
+  animation: pwaBannerSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes pwaBannerSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.pwa-install-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background-color: rgba(24, 24, 27, 0.94);
+  border: 1.5px solid rgba(245, 158, 11, 0.4);
+  border-radius: 18px;
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  color: #FAFAFA;
+}
+
+[data-theme="light"] .pwa-install-banner {
+  background-color: rgba(255, 255, 255, 0.96);
+  border-color: rgba(217, 119, 6, 0.35);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  color: #18181B;
+}
+
+/* Icon Box */
+.pwa-icon-box {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #09090B;
+  border: 1.5px solid rgba(245, 158, 11, 0.5);
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.pwa-app-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Content */
+.pwa-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.pwa-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.pwa-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #FAFAFA;
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+[data-theme="light"] .pwa-title {
+  color: #18181B;
+}
+
+.pwa-tag {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: #F59E0B;
+  background: rgba(245, 158, 11, 0.15);
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.pwa-desc {
+  font-size: 0.76rem;
+  line-height: 1.4;
+  color: #A1A1AA;
+  margin: 0;
+}
+
+[data-theme="light"] .pwa-desc {
+  color: #71717A;
+}
+
+/* Actions */
+.pwa-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.pwa-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 6px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.pwa-btn--install {
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  color: #09090B;
+  border: 1px solid #F59E0B;
+  box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+}
+
+.pwa-btn--install:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(245, 158, 11, 0.4);
+}
+
+.pwa-btn--dismiss {
+  background: transparent;
+  color: #A1A1AA;
+  border: 1px solid transparent;
+}
+
+.pwa-btn--dismiss:hover {
+  color: #FAFAFA;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="light"] .pwa-btn--dismiss:hover {
+  color: #18181B;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* ===== PWA Install Modal Backdrop & Card ===== */
+.pwa-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: pwaFadeIn 0.25s ease;
+}
+
+@keyframes pwaFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.pwa-modal {
+  background-color: #18181B;
+  border: 1.5px solid #27272A;
+  border-radius: 20px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(245, 158, 11, 0.25);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  color: #FAFAFA;
+  animation: pwaModalScale 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="light"] .pwa-modal {
+  background-color: #FFFFFF;
+  border-color: #E4E4E7;
+  color: #18181B;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+@keyframes pwaModalScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.pwa-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid #27272A;
+}
+
+[data-theme="light"] .pwa-modal-header {
+  border-bottom-color: #E4E4E7;
+}
+
+.pwa-modal-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pwa-modal-logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.pwa-modal-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+  color: #FAFAFA;
+}
+
+[data-theme="light"] .pwa-modal-title {
+  color: #18181B;
+}
+
+.pwa-modal-subtitle {
+  font-size: 0.75rem;
+  color: #A1A1AA;
+  margin: 0;
+}
+
+.pwa-modal-close {
+  background: transparent;
+  border: none;
+  color: #A1A1AA;
+  font-size: 1.1rem;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.pwa-modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #FAFAFA;
+}
+
+[data-theme="light"] .pwa-modal-close:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #18181B;
+}
+
+/* Tabs */
+.pwa-tabs {
+  display: flex;
+  background-color: #09090B;
+  padding: 6px;
+  gap: 4px;
+  border-bottom: 1px solid #27272A;
+}
+
+[data-theme="light"] .pwa-tabs {
+  background-color: #F4F4F5;
+  border-bottom-color: #E4E4E7;
+}
+
+.pwa-tab-btn {
+  flex: 1;
+  padding: 8px 6px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  border-radius: 8px;
+  background: transparent;
+  color: #A1A1AA;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.pwa-tab-btn:hover {
+  color: #FAFAFA;
+}
+
+[data-theme="light"] .pwa-tab-btn:hover {
+  color: #18181B;
+}
+
+.pwa-tab-btn--active {
+  background-color: #27272A;
+  color: #F59E0B;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="light"] .pwa-tab-btn--active {
+  background-color: #FFFFFF;
+  color: #D97706;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Tab Content */
+.pwa-tab-content {
+  padding: 20px;
+}
+
+.pwa-steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.pwa-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.pwa-step-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(245, 158, 11, 0.2);
+  color: #F59E0B;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.pwa-step-text {
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #D4D4D8;
+}
+
+[data-theme="light"] .pwa-step-text {
+  color: #3F3F46;
+}
+
+.pwa-step-text strong {
+  color: #FAFAFA;
+}
+
+[data-theme="light"] .pwa-step-text strong {
+  color: #09090B;
+}
+
+/* Footer Action */
+.pwa-modal-footer {
+  padding: 16px 20px;
+  border-top: 1px solid #27272A;
+  display: flex;
+  justify-content: flex-end;
+}
+
+[data-theme="light"] .pwa-modal-footer {
+  border-top-color: #E4E4E7;
+}
+
+.pwa-modal-done-btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 640px) {
+  .pwa-install-banner-container {
+    bottom: 84px;
+    right: 14px;
+    left: 14px;
+    width: auto;
+    max-width: none;
+  }
+
+  .pwa-install-banner {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .pwa-actions {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .pwa-btn {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+  }
+}

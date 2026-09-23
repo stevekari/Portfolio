@@ -62,6 +62,22 @@ const Footer = () => {
       ),
     },
     {
+      name: 'WhatsApp',
+      href: 'https://wa.me/34603107613?text=Hi%20Stephen%2C%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20connect.',
+      icon: (
+        <svg
+          className="footer-social-icon"
+          viewBox="0 0 24 24"
+          width="18"
+          height="18"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2ZM12.04 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.16 12.04 20.16C10.66 20.16 9.3 19.8 8.1 19.11L7.81 18.94L4.69 19.76L5.52 16.72L5.33 16.42C4.55 15.17 4.14 13.56 4.14 11.91C4.14 7.37 7.84 3.67 12.04 3.67Z" />
+        </svg>
+      ),
+    },
+    {
       name: 'Email',
       href: 'mailto:stephenkarikari76@email.com',
       icon: (

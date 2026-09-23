@@ -10,6 +10,8 @@ import Reviews from './components/Reviews';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import CookieBanner from './components/CookieBanner';
+import WhatsAppButton from './components/WhatsAppButton';
+import PWAInstallPrompt from './components/PWAInstallPrompt';
 import { LanguageProvider } from './context/LanguageContext';
 import './App.css';
 
@@ -31,6 +33,8 @@ function App() {
         </main>
         <Footer />
         <CookieBanner />
+        <WhatsAppButton />
+        <PWAInstallPrompt />
       </div>
     </LanguageProvider>
   );

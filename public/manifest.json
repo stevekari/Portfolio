@@ -1,0 +1,32 @@
+{
+  "name": "Stephen Karikari | Full-Stack Developer",
+  "short_name": "Stephen K.",
+  "description": "Portfolio of Stephen Karikari — Full-Stack Developer specializing in React, Java, Spring Boot, and Flutter.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#09090B",
+  "theme_color": "#09090B",
+  "categories": ["portfolio", "business", "productivity"],
+  "icons": [
+    {
+      "src": "./favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./ste.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

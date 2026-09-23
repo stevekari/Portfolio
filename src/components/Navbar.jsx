@@ -82,6 +82,31 @@ export default function Navbar() {
           <LanguageSelector />
           <ThemeToggle />
 
+          {/* Desktop PWA Install Button */}
+          <button
+            type="button"
+            className="navbar-pwa-btn"
+            onClick={() => window.dispatchEvent(new CustomEvent('open-pwa-install'))}
+            title="Install Portfolio App / Add to Home Screen"
+            aria-label="Install App"
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
+              <path d="M12 18h.01" />
+            </svg>
+            <span>Install App</span>
+          </button>
+
           {/* Desktop Resume Download Button */}
           <a
             href={resumePdf}
@@ -170,6 +195,32 @@ export default function Navbar() {
               </a>
             </li>
           ))}
+          <li className="navbar-mobile-item navbar-mobile-pwa">
+            <button
+              type="button"
+              className="navbar-mobile-link navbar-mobile-pwa-link"
+              onClick={() => {
+                closeMenu();
+                window.dispatchEvent(new CustomEvent('open-pwa-install'));
+              }}
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <rect width="14" height="20" x="5" y="2" rx="2" ry="2" />
+                <path d="M12 18h.01" />
+              </svg>
+              <span>📲 Install App (Add to Home Screen)</span>
+            </button>
+          </li>
           <li className="navbar-mobile-item navbar-mobile-resume">
             <a
               href={resumePdf}
