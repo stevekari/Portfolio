@@ -141,7 +141,8 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="footer-bottom">
-          <div className="footer-bottom-left">
+          <div className="footer-bottom-spacer" aria-hidden="true" />
+          <div className="footer-bottom-center">
             <p className="footer-copyright">
               &copy; 2026 Stephen Karikari. {t.footer.rights}
             </p>

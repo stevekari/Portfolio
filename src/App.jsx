@@ -1,7 +1,9 @@
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Projects from './components/Projects';
+import CaseStudy from './components/CaseStudy';
 import Engineering from './components/Engineering';
+import WhyHireMe from './components/WhyHireMe';
 import About from './components/About';
 import Blog from './components/Blog';
 import Reviews from './components/Reviews';
@@ -19,7 +21,9 @@ function App() {
         <main>
           <Hero />
           <Projects />
+          <CaseStudy />
           <Engineering />
+          <WhyHireMe />
           <About />
           <Blog />
           <Reviews />

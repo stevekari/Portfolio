@@ -243,19 +243,19 @@ export const blogPosts = [
 export const skillCategories = [
   {
     category: 'Frontend',
-    skills: ['React', 'JavaScript', 'HTML5', 'CSS3', 'Responsive Design'],
+    skills: ['React', 'TypeScript', 'JavaScript', 'Flutter'],
   },
   {
     category: 'Backend',
-    skills: ['Java', 'Spring Boot', 'Spring Security', 'REST APIs'],
+    skills: ['Spring Boot', 'Java', 'REST APIs'],
   },
   {
     category: 'Database',
-    skills: ['PostgreSQL', 'SQL', 'JPA/Hibernate'],
+    skills: ['PostgreSQL', 'MySQL'],
   },
   {
     category: 'Tools',
-    skills: ['Git', 'GitHub', 'Maven', 'Vite', 'IntelliJ IDEA', 'VS Code', 'Docker', 'Render'],
+    skills: ['Git', 'GitHub', 'Docker'],
   },
 ];
 

@@ -118,16 +118,39 @@
 .skill-pill {
   display: inline-flex;
   align-items: center;
+  gap: 6px;
   background-color: var(--color-gray-100);
   color: var(--color-gray-800);
   font-family: var(--font-mono);
   font-size: 0.78rem;
   font-weight: 600;
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: var(--radius-full);
   border: 1px solid var(--color-border);
   transition: all var(--transition-fast);
   user-select: none;
+}
+
+.skill-pill-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: var(--color-primary);
+  transition: transform var(--transition-fast);
+}
+
+.skill-pill:hover .skill-pill-icon {
+  transform: scale(1.15);
+}
+
+.about-paragraph-lead {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: var(--color-text-primary);
+  font-weight: 500;
+  border-left: 3px solid var(--color-primary);
+  padding-left: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 [data-theme="dark"] .skill-pill {

@@ -1,0 +1,315 @@
+/* ===== Why Hire Me Section Styles ===== */
+.why-hire-section {
+  background-color: var(--color-bg-alt);
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--color-border);
+}
+
+.why-hire-header {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto var(--spacing-3xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.why-hire-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background-color: var(--color-primary-light);
+  border: 1px solid rgba(217, 119, 6, 0.3);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+  letter-spacing: 0.06em;
+}
+
+.why-hire-badge-icon {
+  font-size: 0.85rem;
+}
+
+/* ===== Value Proposition Banner ===== */
+.value-proposition-banner {
+  background: linear-gradient(135deg, rgba(217, 119, 6, 0.07) 0%, rgba(159, 18, 57, 0.05) 100%), var(--color-card);
+  border: 1.5px solid rgba(217, 119, 6, 0.3);
+  border-radius: var(--radius-2xl);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--spacing-3xl);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--spacing-2xl);
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .value-proposition-banner {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(244, 63, 94, 0.06) 100%), #121215;
+  border-color: rgba(245, 158, 11, 0.35);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.5);
+}
+
+.value-banner-content {
+  position: relative;
+  padding-left: 2.25rem;
+}
+
+.value-banner-quote {
+  position: absolute;
+  top: -24px;
+  left: -8px;
+  font-size: 4.5rem;
+  font-family: serif;
+  color: var(--color-primary);
+  opacity: 0.3;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.value-banner-statement {
+  font-size: clamp(1.25rem, 2.4vw, 1.65rem);
+  font-weight: 800;
+  color: var(--color-text-primary);
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+  margin-bottom: 1.25rem;
+}
+
+.value-banner-footer {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.value-banner-author {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.value-banner-role {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+}
+
+.value-banner-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.value-cta-btn {
+  padding: 0.85rem 1.6rem;
+  font-size: var(--font-size-sm);
+}
+
+.value-cv-btn {
+  padding: 0.85rem 1.6rem;
+  font-size: var(--font-size-sm);
+}
+
+/* ===== 5 Advantages Grid ===== */
+.advantages-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-3xl);
+}
+
+.advantage-card {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-fast);
+  will-change: transform, box-shadow;
+  backface-visibility: hidden;
+}
+
+[data-theme="dark"] .advantage-card {
+  background-color: #121215;
+  border-color: #27272A;
+}
+
+@media (hover: hover) {
+  .advantage-card:hover {
+    transform: translate3d(0, -4px, 0);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-primary);
+  }
+}
+
+.advantage-card:active {
+  transform: scale(0.99);
+  transition-duration: var(--transition-fast);
+}
+
+.advantage-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.advantage-icon {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.advantage-highlight {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(217, 119, 6, 0.2);
+}
+
+.advantage-title {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 0.5rem;
+  letter-spacing: -0.01em;
+}
+
+.advantage-desc {
+  font-size: var(--font-size-sm);
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+  flex-grow: 1;
+}
+
+/* ===== Ideal Fit Card ===== */
+.ideal-fit-card {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-2xl);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .ideal-fit-card {
+  background-color: #121215;
+  border-color: #27272A;
+}
+
+.ideal-fit-title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 4px;
+  letter-spacing: -0.02em;
+}
+
+.ideal-fit-desc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  max-width: 480px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.ideal-fit-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.industry-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background-color: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  transition: all var(--transition-fast);
+}
+
+.industry-pill:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .advantages-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ideal-fit-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ideal-fit-tags {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .value-proposition-banner {
+    grid-template-columns: 1fr;
+    padding: 1.75rem 1.5rem;
+    gap: var(--spacing-lg);
+  }
+
+  .value-banner-content {
+    padding-left: 0;
+  }
+
+  .value-banner-quote {
+    display: none;
+  }
+
+  .value-banner-actions {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .value-cta-btn,
+  .value-cv-btn {
+    flex: 1;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .advantages-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .value-banner-actions {
+    flex-direction: column;
+  }
+}
